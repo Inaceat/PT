@@ -5,7 +5,7 @@ namespace Lab1Console
 {
     internal class FooCalculator
     {
-        private static readonly IFormatProvider AmericanCulture = new CultureInfo("en-US");
+        private static readonly IFormatProvider RussianCulture = new CultureInfo("ru-RU");
 
 
         private static void Main(string[] args)
@@ -49,7 +49,7 @@ namespace Lab1Console
                 try
                 {
                     number = double.Parse(read ?? throw new InvalidOperationException(), NumberStyles.Float,
-                        AmericanCulture);
+                        RussianCulture);
                 }
                 catch (Exception)
                 {
