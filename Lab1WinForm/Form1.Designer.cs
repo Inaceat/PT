@@ -54,7 +54,8 @@
             this.secondPowerRadio = new System.Windows.Forms.RadioButton();
             this.secondExpRadio = new System.Windows.Forms.RadioButton();
             this.secondShinusRadio = new System.Windows.Forms.RadioButton();
-            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.firstErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.secondErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             label1 = new System.Windows.Forms.Label();
             label2 = new System.Windows.Forms.Label();
             label3 = new System.Windows.Forms.Label();
@@ -66,7 +67,8 @@
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.secondFunctionsGroup.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.firstErrorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.secondErrorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -158,7 +160,7 @@
             this.firstXInput.Name = "firstXInput";
             this.firstXInput.Size = new System.Drawing.Size(152, 23);
             this.firstXInput.TabIndex = 1;
-            this.firstXInput.TextChanged += new System.EventHandler(this.InputTextChanged);
+            this.firstXInput.TextChanged += new System.EventHandler(this.FirstInputTextChanged);
             // 
             // firstYInput
             // 
@@ -167,7 +169,7 @@
             this.firstYInput.Name = "firstYInput";
             this.firstYInput.Size = new System.Drawing.Size(152, 23);
             this.firstYInput.TabIndex = 2;
-            this.firstYInput.TextChanged += new System.EventHandler(this.InputTextChanged);
+            this.firstYInput.TextChanged += new System.EventHandler(this.FirstInputTextChanged);
             // 
             // firstAOutput
             // 
@@ -186,7 +188,7 @@
             this.firstZInput.Name = "firstZInput";
             this.firstZInput.Size = new System.Drawing.Size(152, 23);
             this.firstZInput.TabIndex = 3;
-            this.firstZInput.TextChanged += new System.EventHandler(this.InputTextChanged);
+            this.firstZInput.TextChanged += new System.EventHandler(this.FirstInputTextChanged);
             // 
             // tabControl
             // 
@@ -277,7 +279,7 @@
             this.secondQInput.Name = "secondQInput";
             this.secondQInput.Size = new System.Drawing.Size(152, 23);
             this.secondQInput.TabIndex = 10;
-            this.secondQInput.TextChanged += new System.EventHandler(this.qInputTextBox_TextChanged);
+            this.secondQInput.TextChanged += new System.EventHandler(this.SecondInputTextChanged);
             // 
             // secondXInput
             // 
@@ -286,7 +288,7 @@
             this.secondXInput.Name = "secondXInput";
             this.secondXInput.Size = new System.Drawing.Size(152, 23);
             this.secondXInput.TabIndex = 9;
-            this.secondXInput.TextChanged += new System.EventHandler(this.xInputTextBox_TextChanged);
+            this.secondXInput.TextChanged += new System.EventHandler(this.SecondInputTextChanged);
             // 
             // secondDOutput
             // 
@@ -348,11 +350,17 @@
             this.secondShinusRadio.TabStop = true;
             this.secondShinusRadio.Text = "sh(x)";
             this.secondShinusRadio.UseVisualStyleBackColor = true;
+            this.secondShinusRadio.CheckedChanged += new System.EventHandler(this.RadioCheckedChanged);
             // 
-            // errorProvider
+            // firstErrorProvider
             // 
-            this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
-            this.errorProvider.ContainerControl = this;
+            this.firstErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.firstErrorProvider.ContainerControl = this;
+            // 
+            // secondErrorProvider
+            // 
+            this.secondErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.secondErrorProvider.ContainerControl = this;
             // 
             // MainForm
             // 
@@ -371,7 +379,8 @@
             this.tabPage2.PerformLayout();
             this.secondFunctionsGroup.ResumeLayout(false);
             this.secondFunctionsGroup.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.firstErrorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.secondErrorProvider)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -396,7 +405,8 @@
         private System.Windows.Forms.TextBox secondDOutput;
         private System.Windows.Forms.Button firstClearButton;
         private System.Windows.Forms.Button secondClearButton;
-        private System.Windows.Forms.ErrorProvider errorProvider;
+        private System.Windows.Forms.ErrorProvider firstErrorProvider;
+        private System.Windows.Forms.ErrorProvider secondErrorProvider;
     }
 }
 

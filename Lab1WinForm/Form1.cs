@@ -17,15 +17,11 @@ namespace Lab1WinForm
         {
             InitializeComponent();
 
-            InputTextChanged(null, null);
+            _selectedFoo = Math.Sinh;
 
+            FirstInputTextChanged(null, null);
+            SecondInputTextChanged(null, null);
         }
-
-        private bool IsTextBoxInputValidDouble(TextBox inputTextBox)
-        {
-            return double.TryParse(inputTextBox.Text, NumberStyles.Float, RussianCulture, out _);
-        }
-
 
 #region First Foo
 
@@ -122,7 +118,7 @@ namespace Lab1WinForm
         }
 
         
-        private void InputTextChanged(object sender, EventArgs e)
+        private void FirstInputTextChanged(object sender, EventArgs e)
         {
             var (valids, invalids, errors) = ValidateFirstFooInput(firstXInput, firstYInput, firstZInput);
 
@@ -135,7 +131,7 @@ namespace Lab1WinForm
             if (invalids.Count == 0)
             {
                 firstCalculateButton.Enabled = true;
-                errorProvider.Clear(); 
+                firstErrorProvider.Clear(); 
             }
             else
             {
@@ -146,7 +142,7 @@ namespace Lab1WinForm
                 foreach (var errorText in errors)
                     sb.AppendLine(errorText);
 
-                errorProvider.SetError(firstCalculateButton, sb.ToString());
+                firstErrorProvider.SetError(firstCalculateButton, sb.ToString());
             }
         }
 
@@ -154,33 +150,16 @@ namespace Lab1WinForm
 
 
 #region SecondFoo
-
-        private bool _isSecondXInputValid;
-        private bool _isSecondQInputValid;
-
+        
         private delegate double F(double x);
+        private F _selectedFoo;
 
         private void calculateSecondFooButton_Click(object sender, EventArgs e)
         {
             var x = double.Parse(secondXInput.Text, RussianCulture);
             var q = double.Parse(secondQInput.Text, RussianCulture);
-
-            F f;
-
-            if (secondShinusRadio.Checked)
-                f = Math.Sinh;
-            else if (secondPowerRadio.Checked)
-                f = arg => arg*arg;
-            else //if (expRadioButton.Checked)
-                f = Math.Exp;
-
-
-            var result = CalculateFooTwo(x, q, f);
-
-            if (double.IsNaN(result) || double.IsInfinity(result))
-                secondDOutput.Text = "Invalid data";
-            else
-                secondDOutput.Text = result.ToString(RussianCulture);
+        
+            secondDOutput.Text = CalculateFooTwo(x, q, _selectedFoo).ToString(RussianCulture);
         }
 
         private double CalculateFooTwo(double x, double q, F f)
@@ -206,19 +185,97 @@ namespace Lab1WinForm
         }
 
 
-        private void xInputTextBox_TextChanged(object sender, EventArgs e)
+        private (List<Control> validInputs, List<Control> invalidInputs, List<string> errors)
+            ValidateSecondFooInput(TextBox xInput, TextBox qInput)
         {
-            _isSecondXInputValid = IsTextBoxInputValidDouble((TextBox) sender);
+            var validInputs = new List<Control>();
+            var invalidInputs = new List<Control>();
+            var errors = new List<string>();
 
-            secondCalculateButton.Enabled = _isSecondXInputValid && _isSecondQInputValid;
+            var isXValid = double.TryParse(xInput.Text, NumberStyles.Float, RussianCulture, out var x);
+            var isQValid = double.TryParse(qInput.Text, NumberStyles.Float, RussianCulture, out var q);
+
+            if (isXValid && isQValid)
+            {
+                var result = CalculateFooTwo(x, q, _selectedFoo);
+
+                if (double.IsNaN(result) || double.IsInfinity(result))
+                {
+                    invalidInputs.Add(xInput);
+                    invalidInputs.Add(qInput);
+                    errors.Add("Cannot calculate function with current arguments");
+                }
+                else
+                {
+                    validInputs.Add(xInput);
+                    validInputs.Add(qInput);
+                }
+            }
+            else
+            {
+                //X
+                if (isXValid)
+                    validInputs.Add(xInput);
+                else
+                {
+                    invalidInputs.Add(xInput);
+                    errors.Add("X is not a number");
+                }
+
+                //Q
+                if (isQValid)
+                    validInputs.Add(qInput);
+                else
+                {
+                    invalidInputs.Add(qInput);
+                    errors.Add("Q is not a number");
+                }
+            }
+
+            return (validInputs, invalidInputs, errors);
         }
 
-        private void qInputTextBox_TextChanged(object sender, EventArgs e)
-        {
-            _isSecondQInputValid = IsTextBoxInputValidDouble((TextBox)sender);
 
-            secondCalculateButton.Enabled = _isSecondXInputValid && _isSecondQInputValid;
+        private void SecondInputTextChanged(object sender, EventArgs e)
+        {
+            var (valids, invalids, errors) = ValidateSecondFooInput(secondXInput, secondQInput);
+
+            foreach (var textBox in valids)
+                textBox.BackColor = Color.White;
+
+            foreach (var textBox in invalids)
+                textBox.BackColor = ErrorColor;
+
+            if (invalids.Count == 0)
+            {
+                secondCalculateButton.Enabled = true;
+                secondErrorProvider.Clear();
+            }
+            else
+            {
+                secondCalculateButton.Enabled = false;
+
+                var sb = new StringBuilder();
+
+                foreach (var errorText in errors)
+                    sb.AppendLine(errorText);
+
+                secondErrorProvider.SetError(secondCalculateButton, sb.ToString());
+            }
         }
+
+        private void RadioCheckedChanged(object sender, EventArgs e)
+        {
+            if (secondShinusRadio.Checked)
+                _selectedFoo = Math.Sinh;
+            else if (secondPowerRadio.Checked)
+                _selectedFoo = d => d * d;
+            else //if (expRadioButton.Checked)
+                _selectedFoo = Math.Exp;
+
+            SecondInputTextChanged(null, null);
+        }
+
 #endregion
     }
 }
