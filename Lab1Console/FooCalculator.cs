@@ -90,11 +90,23 @@ namespace Lab1Console
 
         private static void DoFirstFoo()
         {
-            var x = ReadDoubleFromConsole("X = ");
-            var y = ReadDoubleFromConsole("Y = ");
-            var z = ReadDoubleFromConsole("Z = ");
+            while (true)
+            {
+                var x = ReadDoubleFromConsole("X = ");
+                var y = ReadDoubleFromConsole("Y = ");
+                var z = ReadDoubleFromConsole("Z = ");
 
-            Console.WriteLine("Result = {0}", CalculateFirstFoo(x, y, z));
+
+                var validationErrors = ValidateFirstFooArgs(x, y, z);
+
+                if (null == validationErrors)
+                {
+                    Console.WriteLine("Result = {0}", CalculateFirstFoo(x, y, z));
+                    return;
+                }
+
+                Console.WriteLine(validationErrors);
+            }
         }
 
         private static double CalculateFirstFoo(double x, double y, double z)
@@ -104,30 +116,48 @@ namespace Lab1Console
                    Math.Pow(Math.Exp((x - 1) / Math.Sin(z)), 1.0 / 3);
         }
 
+        private static string ValidateFirstFooArgs(double x, double y, double z)
+        {
+            if (x + Math.Pow(Math.Abs(y), 1.0 / 4) < 0)
+                return "X + abs(Y) ^ 4 should be >= 0";
+
+            return null;
+        }
+
 
         private delegate double F(double x);
 
         private static void DoSecondFoo()
         {
-            var functionIndex = ReadVariantFromConsole(new string[]
+            while (true)
             {
-                "sh(x)",
-                "x^2",
-                "e^x"
-            });
+                var functionIndex = ReadVariantFromConsole(new[]
+                {
+                    "sh(x)",
+                    "x^2",
+                    "e^x"
+                });
 
-            var x = ReadDoubleFromConsole("X = ");
-            var q = ReadDoubleFromConsole("Q = ");
+                var x = ReadDoubleFromConsole("X = ");
+                var q = ReadDoubleFromConsole("Q = ");
 
-            var functions = new F[3]
-            {
-                Math.Sinh,
-                arg => arg * arg,
-                Math.Exp
-            };
+                var functions = new F[3]
+                {
+                    Math.Sinh,
+                    arg => arg * arg,
+                    Math.Exp
+                };
 
+                var validationErrors = ValidateSecondFooArgs(x, q, functions[functionIndex]);
 
-            Console.WriteLine("Result = {0}", CalculateSecondFoo(x, q, functions[functionIndex]));
+                if (null == validationErrors)
+                {
+                    Console.WriteLine("Result = {0}", CalculateSecondFoo(x, q, functions[functionIndex]));
+                    return;
+                }
+
+                Console.WriteLine(validationErrors);
+            }
         }
 
         private static double CalculateSecondFoo(double x, double q, F f)
@@ -141,6 +171,16 @@ namespace Lab1Console
                 return Math.Log(Math.Abs(f(x)) + Math.Abs(q));
 
             return Math.Exp(f(x) + q);
+        }
+
+        private static string ValidateSecondFooArgs(double x, double q, F f)
+        {
+            var result = CalculateSecondFoo(x, q, f);
+
+            if (double.IsNaN(result) || double.IsInfinity(result))
+                return "Cannot calculate function with current arguments";
+
+            return null;
         }
     }
 }
