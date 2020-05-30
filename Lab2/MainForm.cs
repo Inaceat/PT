@@ -33,11 +33,17 @@ namespace Lab2
 
                 xCurrent += xDelta;
 
-            } while (xCurrent < xEnd);
+            } while (
+                (xDelta > 0 && xCurrent < xEnd)
+                ||(xDelta < 0 && xCurrent > xEnd));
 
             values.Add(xEnd, foo(xEnd));
 
             return values;
         }
+
+
+
+
     }
 }

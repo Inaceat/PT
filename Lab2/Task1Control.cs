@@ -50,41 +50,50 @@ namespace Lab2
                 if (value == null) 
                     return;
 
-                _outTextBox.Text = "";
+                _outTextBox.ResetText();
 
                 foreach (var argAndValuePair in value)
                     _outTextBox.Text += $"{argAndValuePair.Key}\t{argAndValuePair.Value}\r\n";
             }
         }
 
-
+        //...
         private void ValidateForm(object sender, EventArgs e)
         {
-            var xDeltaIsDouble = double.TryParse(_xDeltaInput.Text, out var xDelta);
-            if (xDeltaIsDouble && xDelta > 0)
-            {
-                MarkAsValid(_xDeltaInput);
-            }
-            else
-            {
-                MarkAsInvalid(_xDeltaInput);
-            }
-
-
+            
             var xStartIsDouble = double.TryParse(_xStartInput.Text, out var xStart);
             var xEndIsDouble = double.TryParse(_xEndInput.Text, out var xEnd);
-            if (xStartIsDouble && xEndIsDouble && xStart < xEnd)
-            {
+            
+
+            if (xStartIsDouble)
                 MarkAsValid(_xStartInput);
+            else
+                MarkAsInvalid(_xStartInput);
+
+
+            if (xEndIsDouble)
                 MarkAsValid(_xEndInput);
+            else
+                MarkAsInvalid(_xEndInput);
+
+
+
+            var xDeltaIsDouble = double.TryParse(_xDeltaInput.Text, out var xDelta);
+            if (xDeltaIsDouble && Math.Abs(xDelta) > double.Epsilon)
+            {
+                if (xStartIsDouble && xEndIsDouble && Math.Sign(xDelta) == Math.Sign(xEnd - xStart)
+                    || !xStartIsDouble
+                    || !xEndIsDouble
+                )
+                    MarkAsValid(_xDeltaInput);
+                else
+                    MarkAsInvalid(_xDeltaInput);
             }
             else
-            {
-                MarkAsInvalid(_xStartInput);
-                MarkAsInvalid(_xEndInput);
-            }
+                MarkAsInvalid(_xDeltaInput);
 
             
+
             if (double.TryParse(_bParamInput.Text, out _))
                 MarkAsValid(_bParamInput);
             else
@@ -113,143 +122,140 @@ namespace Lab2
 
         private void InitializeComponent()
         {
-            Label label1;
-            Label label2;
-            Label label3;
-            Label label4;
-            Label label5;
-
-            _xEndInput = new TextBox();
-            _xDeltaInput = new TextBox();
-            _xStartInput = new TextBox();
-            _outTextBox = new TextBox();
-            _doTaskButton = new Button();
-            _cParamInput = new TextBox();
-            _bParamInput = new TextBox();
-            label1 = new Label();
-            label2 = new Label();
-            label3 = new Label();
-            label4 = new Label();
-            label5 = new Label();
-            
-            // 
-            // xEndInput
-            // 
-            _xEndInput.Location = new Point(56, 140);
-            _xEndInput.Name = "_xEndInput";
-            _xEndInput.Size = new Size(100, 20);
-            _xEndInput.TabIndex = 3;
-            // 
-            // xDeltaInput
-            // 
-            _xDeltaInput.Location = new Point(56, 166);
-            _xDeltaInput.Name = "_xDeltaInput";
-            _xDeltaInput.Size = new Size(100, 20);
-            _xDeltaInput.TabIndex = 2;
-            // 
-            // xStartInput
-            // 
-            _xStartInput.Location = new Point(56, 114);
-            _xStartInput.Name = "_xStartInput";
-            _xStartInput.Size = new Size(100, 20);
-            _xStartInput.TabIndex = 1;
-            // 
-            // outTextBox
-            // 
-            _outTextBox.BackColor = SystemColors.Window;
-            _outTextBox.Dock = DockStyle.Right;
-            _outTextBox.Location = new Point(394, 3);
-            _outTextBox.Multiline = true;
-            _outTextBox.Name = "_outTextBox";
-            _outTextBox.ReadOnly = true;
-            _outTextBox.ScrollBars = ScrollBars.Vertical;
-            _outTextBox.Size = new Size(302, 374);
-            _outTextBox.TabIndex = 0;
-            // 
-            // doTaskButton
-            // 
-            _doTaskButton.Location = new Point(148, 262);
-            _doTaskButton.Name = "_doTaskButton";
-            _doTaskButton.Size = new Size(75, 23);
-            _doTaskButton.TabIndex = 4;
-            _doTaskButton.Text = "Calculate";
-            _doTaskButton.UseVisualStyleBackColor = true;
-            // 
-            // cParamInput
-            // 
-            _cParamInput.Location = new Point(240, 155);
-            _cParamInput.Name = "_cParamInput";
-            _cParamInput.Size = new Size(100, 20);
-            _cParamInput.TabIndex = 6;
-            // 
-            // bParamInput
-            // 
-            _bParamInput.Location = new Point(240, 129);
-            _bParamInput.Name = "bParamInput";
-            _bParamInput.Size = new Size(100, 20);
-            _bParamInput.TabIndex = 5;
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this._xEndInput = new System.Windows.Forms.TextBox();
+            this._xDeltaInput = new System.Windows.Forms.TextBox();
+            this._xStartInput = new System.Windows.Forms.TextBox();
+            this._outTextBox = new System.Windows.Forms.TextBox();
+            this._doTaskButton = new System.Windows.Forms.Button();
+            this._cParamInput = new System.Windows.Forms.TextBox();
+            this._bParamInput = new System.Windows.Forms.TextBox();
+            this.SuspendLayout();
             // 
             // label1
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(30, 117);
-            label1.Name = "label1";
-            label1.Size = new Size(20, 13);
-            label1.TabIndex = 7;
-            label1.Text = "Xo";
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(30, 117);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(20, 13);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Xo";
             // 
             // label2
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(30, 143);
-            label2.Name = "label2";
-            label2.Size = new Size(20, 13);
-            label2.TabIndex = 8;
-            label2.Text = "Xn";
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(30, 143);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(20, 13);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "Xn";
             // 
             // label3
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(20, 169);
-            label3.Name = "label3";
-            label3.Size = new Size(30, 13);
-            label3.TabIndex = 9;
-            label3.Text = "delta";
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(20, 169);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(30, 13);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "delta";
             // 
             // label4
             // 
-            label4.AutoSize = true;
-            label4.Location = new Point(214, 158);
-            label4.Name = "label4";
-            label4.Size = new Size(13, 13);
-            label4.TabIndex = 10;
-            label4.Text = "c";
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(214, 158);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(13, 13);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "c";
             // 
             // label5
             // 
-            label5.AutoSize = true;
-            label5.Location = new Point(214, 132);
-            label5.Name = "label5";
-            label5.Size = new Size(13, 13);
-            label5.TabIndex = 11;
-            label5.Text = "b";
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(214, 132);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(13, 13);
+            this.label5.TabIndex = 11;
+            this.label5.Text = "b";
+            // 
+            // _xEndInput
+            // 
+            this._xEndInput.Location = new System.Drawing.Point(56, 140);
+            this._xEndInput.Name = "_xEndInput";
+            this._xEndInput.Size = new System.Drawing.Size(100, 20);
+            this._xEndInput.TabIndex = 3;
+            // 
+            // _xDeltaInput
+            // 
+            this._xDeltaInput.Location = new System.Drawing.Point(56, 166);
+            this._xDeltaInput.Name = "_xDeltaInput";
+            this._xDeltaInput.Size = new System.Drawing.Size(100, 20);
+            this._xDeltaInput.TabIndex = 2;
+            // 
+            // _xStartInput
+            // 
+            this._xStartInput.Location = new System.Drawing.Point(56, 114);
+            this._xStartInput.Name = "_xStartInput";
+            this._xStartInput.Size = new System.Drawing.Size(100, 20);
+            this._xStartInput.TabIndex = 1;
+            // 
+            // _outTextBox
+            // 
+            this._outTextBox.BackColor = System.Drawing.SystemColors.Window;
+            this._outTextBox.Dock = System.Windows.Forms.DockStyle.Right;
+            this._outTextBox.Location = new System.Drawing.Point(365, 0);
+            this._outTextBox.Multiline = true;
+            this._outTextBox.Name = "_outTextBox";
+            this._outTextBox.ReadOnly = true;
+            this._outTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this._outTextBox.Size = new System.Drawing.Size(302, 436);
+            this._outTextBox.TabIndex = 0;
+            // 
+            // _doTaskButton
+            // 
+            this._doTaskButton.Location = new System.Drawing.Point(148, 262);
+            this._doTaskButton.Name = "_doTaskButton";
+            this._doTaskButton.Size = new System.Drawing.Size(75, 23);
+            this._doTaskButton.TabIndex = 4;
+            this._doTaskButton.Text = "Calculate";
+            this._doTaskButton.UseVisualStyleBackColor = true;
+            // 
+            // _cParamInput
+            // 
+            this._cParamInput.Location = new System.Drawing.Point(240, 155);
+            this._cParamInput.Name = "_cParamInput";
+            this._cParamInput.Size = new System.Drawing.Size(100, 20);
+            this._cParamInput.TabIndex = 6;
+            // 
+            // _bParamInput
+            // 
+            this._bParamInput.Location = new System.Drawing.Point(240, 129);
+            this._bParamInput.Name = "_bParamInput";
+            this._bParamInput.Size = new System.Drawing.Size(100, 20);
+            this._bParamInput.TabIndex = 5;
+            // 
+            // Task1Control
+            // 
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this._cParamInput);
+            this.Controls.Add(this._bParamInput);
+            this.Controls.Add(this._doTaskButton);
+            this.Controls.Add(this._xEndInput);
+            this.Controls.Add(this._xDeltaInput);
+            this.Controls.Add(this._xStartInput);
+            this.Controls.Add(this._outTextBox);
+            this.Name = "Task1Control";
+            this.Size = new System.Drawing.Size(667, 436);
+            this.ResumeLayout(false);
+            this.PerformLayout();
 
-            SuspendLayout();
-            
-            Controls.Add(label5);
-            Controls.Add(label4);
-            Controls.Add(label3);
-            Controls.Add(label2);
-            Controls.Add(label1);
-            Controls.Add(_cParamInput);
-            Controls.Add(_bParamInput);
-            Controls.Add(_doTaskButton);
-            Controls.Add(_xEndInput);
-            Controls.Add(_xDeltaInput);
-            Controls.Add(_xStartInput);
-            Controls.Add(_outTextBox);
-
-            ResumeLayout(false);
         }
 
 
@@ -261,7 +267,11 @@ namespace Lab2
         private TextBox _cParamInput;
         
         private Button _doTaskButton;
-        
+        private Label label1;
+        private Label label2;
+        private Label label3;
+        private Label label4;
+        private Label label5;
         private TextBox _outTextBox;
     }
 }
