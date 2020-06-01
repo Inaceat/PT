@@ -11,21 +11,33 @@ namespace Lab2
         {
             InitializeComponent();
 
+            _randomProvider = new Random(42);
+
+
 
             task1Control.CalculateClick += DoTask1;
 
 
+
             _initialAray = new List<int>();
             _resultAray = new List<int>();
-            _randomProvider = new Random(42);
 
             task2Control.RandomizeClick += Task2FillInitialArray;
             task2Control.FillResultButtonClick += Task2FillResultArray;
             task2Control.ChangeSignClick += Task2ShuffleResultSigns;
             task2Control.FilterClick += Task2FilterResultArray;
             task2Control.SortClick += Task2SortResultArray;
+
+
+
+            task3Control.FillClick += Task3FillMatrix;
+            task3Control.CalculateClick += Task3CalculateMainDiagSum;
+            task3Control.ChangeClick += Task3ChangeMatrix;
         }
 
+
+        private readonly Random _randomProvider;
+       
 
         //Task 1
         private void DoTask1(object sender, EventArgs e)
@@ -61,8 +73,7 @@ namespace Lab2
         private readonly List<int> _initialAray;
         private List<int> _resultAray;
         private bool _isAscending = true;
-        private readonly Random _randomProvider;
-
+        
 
         //Randoms from D[f(x)]
         private void Task2FillInitialArray(object sender, EventArgs eventArgs)
@@ -124,6 +135,61 @@ namespace Lab2
 
             task2Control.SetResultData(_resultAray);
             task2Control.ChangeResultOrderView(_isAscending);
+        }
+
+
+        //Task 3
+        private int[,] _matrix;
+        private int? _mainDiagSum;
+
+        private void Task3FillMatrix(object sender, EventArgs e)
+        {
+            _mainDiagSum = null;
+            task3Control.ClearMainDiagSum();
+
+
+            _matrix = new int[10, 10];
+
+            for (var i = 0; i < _matrix.GetLength(0); ++i)
+                for (var j = 0; j < _matrix.GetLength(1); ++j)
+                    _matrix[i, j] = _randomProvider.Next(-100, 101);
+
+            task3Control.SetMatrix(_matrix);
+        }
+
+        private void Task3CalculateMainDiagSum(object sender, EventArgs e)
+        {
+            if (null == _matrix)
+                return;
+
+
+            _mainDiagSum = 0;
+
+            for (var i = 0; i < _matrix.GetLength(0); ++i)
+                _mainDiagSum += _matrix[i, i];
+
+            
+            task3Control.SetMainDiagSum(_mainDiagSum.Value);
+        }
+
+        private void Task3ChangeMatrix(object sender, EventArgs e)
+        {
+            if (null == _mainDiagSum)
+                return;
+
+
+            for (var i = 0; i < _matrix.GetLength(0); ++i)
+                for (var j = 0; j < _matrix.GetLength(1); ++j)
+                    _matrix[i, j] =
+                        _mainDiagSum.Value > 10
+                            ? (int) (13.5 + _matrix[i, j])
+                            : (int) (-1.5 + _matrix[i, j] * _matrix[i, j]);
+
+            task3Control.SetMatrix(_matrix);
+
+
+            _mainDiagSum = null;
+            task3Control.ClearMainDiagSum();
         }
     }
 }

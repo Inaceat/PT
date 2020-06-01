@@ -34,9 +34,11 @@
             this.tabTask2 = new System.Windows.Forms.TabPage();
             this.task2Control = new Lab2.Task2Control();
             this.tabTask3 = new System.Windows.Forms.TabPage();
+            this.task3Control = new Lab2.Task3Control();
             this.tabsControl.SuspendLayout();
             this.tabTask1.SuspendLayout();
             this.tabTask2.SuspendLayout();
+            this.tabTask3.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabsControl
@@ -91,12 +93,21 @@
             // 
             // tabTask3
             // 
+            this.tabTask3.Controls.Add(this.task3Control);
             this.tabTask3.Location = new System.Drawing.Point(4, 22);
             this.tabTask3.Name = "tabTask3";
             this.tabTask3.Size = new System.Drawing.Size(686, 457);
             this.tabTask3.TabIndex = 2;
             this.tabTask3.Text = "Task 3";
             this.tabTask3.UseVisualStyleBackColor = true;
+            // 
+            // task3Control
+            // 
+            this.task3Control.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.task3Control.Location = new System.Drawing.Point(0, 0);
+            this.task3Control.Name = "task3Control";
+            this.task3Control.Size = new System.Drawing.Size(686, 457);
+            this.task3Control.TabIndex = 0;
             // 
             // MainForm
             // 
@@ -109,6 +120,7 @@
             this.tabsControl.ResumeLayout(false);
             this.tabTask1.ResumeLayout(false);
             this.tabTask2.ResumeLayout(false);
+            this.tabTask3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -121,6 +133,7 @@
         private System.Windows.Forms.TabPage tabTask3;
         private Task1Control task1Control;
         private Task2Control task2Control;
+        private Task3Control task3Control;
     }
 }
 

@@ -63,6 +63,12 @@
     <Compile Include="Task2Control.Designer.cs">
       <DependentUpon>Task2Control.cs</DependentUpon>
     </Compile>
+    <Compile Include="Task3Control.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Task3Control.Designer.cs">
+      <DependentUpon>Task3Control.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -80,6 +86,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Task2Control.resx">
       <DependentUpon>Task2Control.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Task3Control.resx">
+      <DependentUpon>Task3Control.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
