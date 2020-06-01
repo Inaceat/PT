@@ -30,10 +30,10 @@
         {
             this.tabsControl = new System.Windows.Forms.TabControl();
             this.tabTask1 = new System.Windows.Forms.TabPage();
-            this.tabTask2 = new System.Windows.Forms.TabPage();
-            this.tabTask3 = new System.Windows.Forms.TabPage();
             this.task1Control = new Lab2.Task1Control();
-            this.task2Control1 = new Lab2.Task2Control();
+            this.tabTask2 = new System.Windows.Forms.TabPage();
+            this.task2Control = new Lab2.Task2Control();
+            this.tabTask3 = new System.Windows.Forms.TabPage();
             this.tabsControl.SuspendLayout();
             this.tabTask1.SuspendLayout();
             this.tabTask2.SuspendLayout();
@@ -62,9 +62,17 @@
             this.tabTask1.Text = "Task 1";
             this.tabTask1.UseVisualStyleBackColor = true;
             // 
+            // task1Control
+            // 
+            this.task1Control.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.task1Control.Location = new System.Drawing.Point(3, 3);
+            this.task1Control.Name = "task1Control";
+            this.task1Control.Size = new System.Drawing.Size(680, 451);
+            this.task1Control.TabIndex = 0;
+            // 
             // tabTask2
             // 
-            this.tabTask2.Controls.Add(this.task2Control1);
+            this.tabTask2.Controls.Add(this.task2Control);
             this.tabTask2.Location = new System.Drawing.Point(4, 22);
             this.tabTask2.Name = "tabTask2";
             this.tabTask2.Padding = new System.Windows.Forms.Padding(3);
@@ -72,6 +80,14 @@
             this.tabTask2.TabIndex = 1;
             this.tabTask2.Text = "Task 2";
             this.tabTask2.UseVisualStyleBackColor = true;
+            // 
+            // task2Control
+            // 
+            this.task2Control.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.task2Control.Location = new System.Drawing.Point(3, 3);
+            this.task2Control.Name = "task2Control";
+            this.task2Control.Size = new System.Drawing.Size(680, 451);
+            this.task2Control.TabIndex = 0;
             // 
             // tabTask3
             // 
@@ -81,22 +97,6 @@
             this.tabTask3.TabIndex = 2;
             this.tabTask3.Text = "Task 3";
             this.tabTask3.UseVisualStyleBackColor = true;
-            // 
-            // task1Control
-            // 
-            this.task1Control.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.task1Control.Location = new System.Drawing.Point(3, 3);
-            this.task1Control.Name = "task1Control";
-            this.task1Control.Size = new System.Drawing.Size(680, 451);
-            this.task1Control.TabIndex = 0;
-            // 
-            // task2Control1
-            // 
-            this.task2Control1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.task2Control1.Location = new System.Drawing.Point(3, 3);
-            this.task2Control1.Name = "task2Control1";
-            this.task2Control1.Size = new System.Drawing.Size(680, 451);
-            this.task2Control1.TabIndex = 0;
             // 
             // MainForm
             // 
@@ -120,7 +120,7 @@
         private System.Windows.Forms.TabPage tabTask2;
         private System.Windows.Forms.TabPage tabTask3;
         private Task1Control task1Control;
-        private Task2Control task2Control1;
+        private Task2Control task2Control;
     }
 }
 

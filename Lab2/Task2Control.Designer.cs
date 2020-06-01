@@ -80,7 +80,8 @@
             // 
             // filterButton
             // 
-            this.filterButton.Location = new System.Drawing.Point(265, 185);
+            this.filterButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.filterButton.Location = new System.Drawing.Point(274, 185);
             this.filterButton.Name = "filterButton";
             this.filterButton.Size = new System.Drawing.Size(104, 23);
             this.filterButton.TabIndex = 4;
@@ -89,7 +90,8 @@
             // 
             // changeSignButton
             // 
-            this.changeSignButton.Location = new System.Drawing.Point(265, 132);
+            this.changeSignButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.changeSignButton.Location = new System.Drawing.Point(274, 133);
             this.changeSignButton.Name = "changeSignButton";
             this.changeSignButton.Size = new System.Drawing.Size(104, 23);
             this.changeSignButton.TabIndex = 5;
@@ -98,7 +100,8 @@
             // 
             // fillResultButton
             // 
-            this.fillResultButton.Location = new System.Drawing.Point(294, 84);
+            this.fillResultButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.fillResultButton.Location = new System.Drawing.Point(303, 84);
             this.fillResultButton.Name = "fillResultButton";
             this.fillResultButton.Size = new System.Drawing.Size(75, 23);
             this.fillResultButton.TabIndex = 6;
