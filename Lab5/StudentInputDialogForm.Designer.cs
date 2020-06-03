@@ -150,6 +150,7 @@
             0,
             0});
             this.gradeNumberInput.Name = "gradeNumberInput";
+            this.gradeNumberInput.ReadOnly = true;
             this.gradeNumberInput.Size = new System.Drawing.Size(92, 23);
             this.gradeNumberInput.TabIndex = 1;
             this.gradeNumberInput.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
