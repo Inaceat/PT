@@ -19,13 +19,13 @@ namespace Lab5
             _students.Add(new StudentInfo("ВАЛЕРА", 11, "А", StudentInfo.StudentPerfomance.Good));
             _students.Add(new StudentInfo("Игорь", 2, "В", StudentInfo.StudentPerfomance.Passable));
             _students.Add(new StudentInfo("Евлампий", 7, "Г", StudentInfo.StudentPerfomance.Good));
-
-
+ 
 
             outputListBox.DataSource = _students;
             outputListBox.DisplayMember = "Name";
             outputListBox.SelectedIndexChanged += CheckButtonsEnabled;
         }
+        
 
         private void CheckButtonsEnabled(object sender, EventArgs args)
         {
