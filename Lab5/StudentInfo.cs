@@ -4,13 +4,14 @@ using System.Text;
 
 namespace Lab5
 {
+    [Serializable]
     internal class StudentInfo
     {
         public enum StudentPerfomance
         {
-            Excellent,
-            Good,
-            Passable
+            Отличник,
+            Хорошист,
+            Троечник
         }
 
         
